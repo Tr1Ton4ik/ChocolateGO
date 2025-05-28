@@ -1,0 +1,298 @@
+{{define "admin"}}
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Администратор - Шоколадный интернет-магазин</title>
+        <link rel="stylesheet" href="/web/css/admin.css" />
+    </head>
+
+    <body>
+        <main>
+            <nav>
+                <ul>
+                    <li><a href="#add-product">Добавить продукт</a></li>
+                    <li><a href="#add-admin">Добавить администратора</a></li>
+                    <li><a href="#delete-product">Удалить продукт</a></li>
+                    <li><a href="#add-category">Добавить категорию</a></li>
+                    <li><a href="#delete-category">Удалить категорию</a></li>
+                    <li><a href="/login" id="logout-btn">Выйти</a></li>
+                </ul>
+            </nav>
+
+            <!-- Раздел для добавления продукта -->
+            <section id="add-product">
+                <h1>Добавить новый продукт</h1>
+                <form
+                    id="product-form"
+                    enctype="multipart/form-data"
+                    method="POST"
+                    action="/add_product"
+                >
+                    {{.csrfField}}
+                    <div class="form-group">
+                        <label for="name">Название:</label>
+                        <input type="text" id="name" name="name" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Категория:</label>
+                        <select id="category" name="category" required>
+                            <option value="">Выберите категорию</option>
+                            {{range .allCategories}}
+                            <option value="{{.}}">{{.}}</option>
+                            {{end}}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="short_description"
+                            >Краткое описание товара для каталога:</label
+                        >
+                        <textarea
+                            id="short_description"
+                            name="short_description"
+                            required
+                        ></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="description"
+                            >Описание для карточки товара:</label
+                        >
+                        <textarea
+                            id="description"
+                            name="description"
+                            required
+                        ></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Цена:</label>
+                        <input
+                            type="number"
+                            id="price"
+                            name="price"
+                            step="0.01"
+                            required
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label for="image">Изображение:</label>
+                        <input
+                            type="file"
+                            id="image"
+                            name="image"
+                            accept="image/*"
+                            required
+                        />
+                    </div>
+                    <div class="form-group">
+                        <input
+                            type="checkbox"
+                            id="confirm-checkbox"
+                            name="confirm-checkbox"
+                            required
+                        />
+                        <label for="confirm-checkbox"
+                            >Я все проверил и подтверждаю свое действие</label
+                        >
+                    </div>
+
+                    <button type="submit" class="btn">Добавить продукт</button>
+                </form>
+            </section>
+
+            <!-- Раздел для добавления администратора -->
+            <section id="add-admin" style="display: none">
+                <h1>Добавить администратора</h1>
+                <form id="admin-form" method="POST" action="/add_admin">
+                    {{.csrfField}}
+                    <!-- Форма для добавления администратора -->
+                    <div class="form-group">
+                        <label for="name">Имя:</label>
+                        <input type="text" id="name" name="name" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Пароль:</label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            required
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password"
+                            >Подтверждение пароля:</label
+                        >
+                        <input
+                            type="password"
+                            id="confirm-password"
+                            name="confirm-password"
+                            required
+                        />
+                    </div>
+                    <div class="form-group">
+                        <input
+                            type="checkbox"
+                            id="confirm-checkbox"
+                            name="confirm-checkbox"
+                            required
+                        />
+                        <label for="confirm-checkbox"
+                            >Я все проверил и подтверждаю свое действие</label
+                        >
+                    </div>
+
+                    <button type="submit" class="btn">
+                        Добавить администратора
+                    </button>
+                </form>
+            </section>
+
+            <section id="delete-product" style="display: none">
+                <h1>Удалить продукт</h1>
+                <form id="delete-form">
+                    {{.csrfField}}
+                    <section id="delete-product">
+                        <div class="form-group">
+                            <label for="search-input"
+                                >Поиск товара, в скобках его категория:</label
+                            >
+                            <input
+                                type="text"
+                                id="search-input"
+                                oninput="searchProduct()"
+                                placeholder="Введите название товара, который ищите..."
+                            />
+                            <div
+                                id="search-results"
+                                style="margin-top: 10px"
+                            ></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="search-input"
+                                >Название товара(это нужно для
+                                достоверности):</label
+                            >
+                            <input
+                                type="text"
+                                id="delete-product-name"
+                                name="name"
+                                placeholder="Введите название товара..."
+                            />
+                            <div
+                                id="search-results"
+                                style="margin-top: 10px"
+                            ></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="search-input"
+                                >Название категории(это нужно для
+                                достоверности):</label
+                            >
+                            <input
+                                type="text"
+                                id="delete-product-category"
+                                name="category"
+                                placeholder="Введите категорию товара..."
+                            />
+                            <div
+                                id="search-results"
+                                style="margin-top: 10px"
+                            ></div>
+                        </div>
+                    </section>
+                    <div class="form-group">
+                        <input
+                            type="checkbox"
+                            id="confirm-checkbox"
+                            name="confirm-checkbox"
+                            required
+                        />
+                        <label for="confirm-checkbox"
+                            >Я все проверил и подтверждаю свое действие</label
+                        >
+                    </div>
+
+                    <button
+                        type="delete-product-btn"
+                        id="delete-product-btn"
+                        name="delete-product-btn"
+                        class="btn"
+                        onclick="deleteProduct(event)"
+                    >
+                        Удалить товар
+                    </button>
+                </form>
+            </section>
+            <section id="add-category" style="display: none">
+                <h1>Добавить категорию</h1>
+                <form id="category-form" method="POST" action="/add_category">
+                    {{.csrfField}}
+                    <div class="form-group">
+                        <label for="category-name">Название категории:</label>
+                        <input
+                            type="text"
+                            id="category-name"
+                            name="name"
+                            required
+                        />
+                    </div>
+                    <div class="form-group">
+                        <input
+                            type="checkbox"
+                            id="confirm-checkbox"
+                            name="confirm-checkbox"
+                            required
+                        />
+                        <label for="confirm-checkbox"
+                            >Я все проверил и подтверждаю свое действие</label
+                        >
+                    </div>
+
+                    <button type="submit" class="btn">
+                        Добавить категорию
+                    </button>
+                </form>
+            </section>
+
+            <!-- Раздел для удаления категории -->
+            <section id="delete-category" style="display: none">
+                <h1>Удалить категорию</h1>
+                <form id="delete-category-form">
+                    {{.csrfField}}
+                    <div class="form-group">
+                        <label for="category-to-delete"
+                            >Название категории для удаления:</label
+                        >
+                        <select id="category-to-delete" name="name" required>
+                            <option value="">Выберите категорию</option>
+                            {{range .allCategories}}
+                            <option value="{{.}}">{{.}}</option>
+                            {{end}}
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input
+                            type="checkbox"
+                            id="confirm-checkbox"
+                            name="confirm-checkbox"
+                            required
+                        />
+                        <label for="confirm-checkbox"
+                            >Я все проверил и подтверждаю свое действие</label
+                        >
+                    </div>
+
+                    <button type="submit" class="btn">Удалить категорию</button>
+                </form>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2023 Chocolate Internet Shop. All rights reserved.</p>
+        </footer>
+
+        <script src="/web/js/admin.js"></script>
+    </body>
+</html>
+{{end}}

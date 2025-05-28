@@ -1,0 +1,289 @@
+:root {
+    --primary-color: #8B4513;
+    /* Основной темно-коричневый */
+    --accent-color: #A0522D;
+    /* Акцентный оттенок */
+    --secondary-color: #fce4d6;
+    /* Фон для секции "Почему наш шоколад?" */
+    --alt-color: #fff9f3;
+    /* Фон для секции "Как заказать нашу продукцию?" */
+    --background-color: #ffffff;
+    /* Общий светлый фон */
+    --text-color: #4A3C31;
+    --heading-color: #6f4c3e;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --transition-speed: 0.3s;
+}
+body {
+    font-family: 'Arial', sans-serif; 
+    background-color: #f8f4f0; /* Светлый фон, напоминающий шоколадный крем */
+    margin: 0;
+    padding: 20px;
+}
+
+/* Контейнер для продукта */
+.product-container {
+    max-width: 600px; /* Ограничение ширины контейнера */
+    margin: 0 auto; /* Центрирование контейнера */
+    background-color: #fff; /* Белый фон для выделения информации о продукте */
+    border-radius: 10px; /* Закругленные углы */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Тень для визуального эффекта */
+    padding: 20px; /* Отступы внутри контейнера */
+}
+
+/* Кнопки для карусели изображений */
+.image-carousel {
+    position: relative;
+    text-align: center; /* Центрирование изображений и кнопок */
+}
+
+.image-carousel img {
+    width: 100%; /* Ширина изображения 100% от контейнера */
+    border-radius: 10px; /* Закругленные углы изображения */
+}
+/* Заголовок */
+.product-title {
+    font-size: 24px; /* Размер шрифта заголовка */
+    color: #3a2b25; /* Темный шоколадный цвет */
+    margin: 15px 0; /* Отступы сверху и снизу */
+}
+
+/* Цена продукта */
+.product-price {
+    font-size: 20px; /* Размер шрифта для цены */
+    color: #8b5a2b; /* Цвет, напоминающий о молочном шоколаде */
+}
+
+/* Описание продукта */
+.product-description {
+    font-size: 16px; /* Размер шрифта для описания */
+    color: #4b3f3d; /* Теплый темный цвет */
+    margin-top: 10px; /* Отступ сверху */
+}
+
+/* Кнопка "В корзину" */
+.cart-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: #8b4513;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.cart-icon::before {
+    content: "\1F6D2"; /* Юникод символ корзины */
+    font-size: 28px;
+    margin-right: 5px;
+}
+
+.cart-icon:hover {
+    background-color: #a0522d;
+    transform: scale(1.1);
+}
+
+.cart-icon span {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    background-color: red;
+    color: white;
+    font-size: 14px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cart-modal {
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    width: 300px;
+    max-height: 70%;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    overflow-y: auto;
+    z-index: 1001;
+}
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #8b4513;
+    color: white;
+    border-radius: 10px 10px 0 0;
+}
+
+.close-cart {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+}
+
+.cart-content {
+    padding: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+    color: #4A3C31; /* Темно-коричневый текст корзины */
+}
+
+.cart-modal .checkout-button {
+    margin: 10px 20px;
+    padding: 10px 15px;
+    background-color: #8B4513;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.cart-modal .checkout-button:hover {
+    background-color: #A0522D;
+}
+.remove-item {
+    background-color: #ff4d4d; /* Красный цвет фона */
+    color: white; /* Белый текст */
+    border: none; /* Убираем границу */
+    padding: 8px 12px; /* Отступы внутри кнопки */
+    border-radius: 5px; /* Закругленные углы */
+    cursor: pointer; /* Курсор в виде указателя */
+    font-size: 14px; /* Размер текста */
+    font-weight: bold; /* Жирный текст */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Плавные переходы */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Тень для кнопки */
+}
+/* Общие правила для адаптивного дизайна */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff; /* Белый фон */
+    color: #4A3C31; /* Общий цвет текста (темно-коричневый) */
+}
+
+header {
+    background: linear-gradient(to right, #6f4c3e, var(--primary-color));
+    padding: 10px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 10px var(--shadow-color);
+}
+
+.menu-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Логотип – ограничиваем размеры, чтобы не занимал весь экран */
+.arrow{
+    display: none;
+}
+.logo img {
+    max-height: 40px;
+    width: auto;
+    object-fit: contain;
+    border-radius: 20%;
+}
+
+/* Основное меню */
+.menu ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.menu a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 600;
+    transition: color var(--transition-speed);
+}
+
+.menu a:hover {
+    color: var(--secondary-color);
+}
+
+.social-icons {
+    text-align: right;
+}
+
+.social-icons img {
+    width: 25px;
+    margin-left: 10px;
+}
+
+.company-logo-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.company-logo {
+    height: 120px;
+}
+.add-to-cart {
+    background-color: #4CAF50; /* Зеленый цвет фона */
+    color: white; /* Белый текст */
+    border: none; /* Убираем границу */
+    padding: 10px 20px; /* Отступы внутри кнопки */
+    border-radius: 5px; /* Закругленные углы */
+    cursor: pointer; /* Курсор в виде указателя */
+    font-size: 16px; /* Размер текста */
+    font-weight: bold; /* Жирный текст */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Плавные переходы */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень для кнопки */
+}
+
+.add-to-cart:hover {
+    background-color: #45a049; /* Темнее зеленый при наведении */
+    transform: translateY(-2px); /* Слегка поднимаем кнопку при наведении */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Увеличиваем тень при наведении */
+}
+
+.add-to-cart:active {
+    background-color: #3d8b40; /* Еще темнее при нажатии */
+    transform: translateY(0); /* Возвращаем кнопку в исходное положение */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Возвращаем тень в исходное состояние */
+}
+@media (max-width:512px){
+    .menu{
+        display: none;
+    }
+    .logo{
+        display: none;
+    }
+    .arrow{
+        display: flex;
+    }
+    .arrow img{
+        height: 25px;
+        width: 25px;
+    }
+}

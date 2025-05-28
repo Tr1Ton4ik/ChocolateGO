@@ -1,0 +1,11 @@
+web/img/
+internal/csrfKey/csrfKey.go
+internal/passwords/passwords.go
+!web/img/arrow.png
+!web/img/icons8-whatsapp.svg 
+!web/img/icons8-vk-com.svg 
+!web/img/icons8-telegram-app.svg 
+!web/img/icons8-instagram-logo.svg 
+!web/img/banner-image.png 
+!web/img/logo.png
+*.db

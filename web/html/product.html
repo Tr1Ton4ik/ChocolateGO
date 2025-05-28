@@ -1,0 +1,65 @@
+{{ define "product"}}
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Name}}</title>
+    <link rel="stylesheet" href="/web/css/product.css">
+</head>
+
+<body>
+    <header>
+        <div class="menu-container">
+            <div class="logo">
+                <a href="/">
+                    <img src="web/img/logo.png" alt="Логотип Chocoladomagia" />
+                </a>
+            </div>
+            <div class="arrow"><a href="/"><img src="web/img/arrow.png" alt=""></a></div>
+            <nav class="menu">
+                <ul>
+                    <li><a href="/#products">Каталог</a></li>
+                    <li><a href="/#how-order">Заказ</a></li>
+                    <li><a href="/#banner-info">О нас</a></li>
+                    <li><a href="/#why-choose">Почему наш шоколад</a></li>
+                </ul>
+            </nav>
+            <div class="social-icons">
+                <a href="https://www.instagram.com/chocoladomagia?igsh=MWhuaWNjNW5ydXJ3YQ==" target="_blank"><img
+                        src="web/img/icons8-instagram-logo.svg" alt="Instagram"></a>
+                <a href="https://t.me/chocoladomagia" target="_blank"><img src="web/img/icons8-telegram-app.svg"
+                        alt="Telegram"></a>
+                <a href="https://wa.me/79775970676" target="_blank"><img src="web/img/icons8-whatsapp.svg"
+                        alt="WhatsApp"></a>
+            </div>
+        </div>
+    </header>
+    <div class="product-container">
+        <div class="image-carousel">
+            <img id="product-image" src=/web/img/{{.Name}}.png alt={{.Name}}>
+        </div>
+        <h1 class="product-title">{{.Name}}</h1>
+        <p class="product-price">Цена: {{.Price}} р.</p>
+        <p class="product-description"> {{.LongDesc}} </p>
+        <button class="add-to-cart" data-name={{.Name}} data-price={{.Price}}>В корзину</button>
+    </div>
+    <div id="cart-icon" class="cart-icon">
+        <span id="cart-count">0</span>
+    </div>
+
+    <div id="cart-modal" class="cart-modal">
+        <div class="cart-header">
+            <h3>Ваша корзина</h3>
+            <button id="close-cart" class="close-cart">×</button>
+        </div>
+        <div id="cart-content" class="cart-content">
+            <p>Ваша корзина пуста.</p>
+        </div>
+        <button id="checkout-button" class="checkout-button">Оформить заказ</button>
+    </div>
+    <script src="web/js/product.js"></script>
+</body>
+</html>
+{{end}}
