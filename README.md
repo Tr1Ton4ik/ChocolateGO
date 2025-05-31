@@ -25,8 +25,10 @@ http://localhost:8080 - сам сайт при разработке
 **-additems** - добавить дэфолтные товары(используется при разработке для быстрого заполнения)
 
 ### Запуск локалхоста:
-` go run main.go`
+```golang 
+go run main.go
+```
 
 ## Возможные ошибки:
 + ### [error] failed to initialize database, got error unable to open database file: no such file or directory
-Проверьте переменную ` dbName`, по умолчанию в ней стоит ../data/your_db_file для девелопа на amvera
+Проверьте переменную `dbName`, по умолчанию в ней стоит ../data/your_db_file для девелопа на amvera
